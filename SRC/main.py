@@ -10,14 +10,14 @@ import pickle
 SRC = os.path.abspath('./SRC/Assets')
 
 # Load the pipeline using pickle
-pipeline_path = os.path.join(SRC, 'rfc_pipeline.pkl')
+pipeline_path = os.path.join(SRC, 'pipeline.pkl')
 with open(pipeline_path, 'rb') as file:
-    rfc_pipeline = pickle.load(file)
+    pipeline = pickle.load(file)
 
 # Load the encoder using pickle
-encoder_path = os.path.join(SRC, 'encoder.pkl')
-with open(encoder_path, 'rb') as file:
-    encoder = pickle.load(file)
+model_path = os.path.join(SRC, 'rfc_model.pkl')
+with open(model_path, 'rb') as file:
+    model = pickle.load(file)
 
 app = FastAPI(
     title= 'Income Classification FastAPI',
@@ -71,18 +71,20 @@ def home():
 @app.post('/classify', response_model=IncomePredictionOutput)
 def income_classification(income: IncomePredictionInput):
     try:
-        df = pd.DataFrame([income.model_dump()])
-           
+        # Convert input data to DataFrame
+        input_df = pd.DataFrame([dict(income)])
+
+        # Preprocess the input data through the pipeline
+        input_df_transformed = pipeline.transform(input_df)
+
         # Make predictions
-        prediction = rfc_pipeline.predict(df)
-        output = rfc_pipeline.predict_proba(df)
+        prediction = model.predict(input_df_transformed)
+        probability = model.predict_proba(input_df_transformed).max(axis=1)[0]
 
-        prediction_result = "Income over $50K" if prediction[0] == 1 else "Income under $50K"
-        return {"income_prediction": prediction_result, "prediction_probability": output[0][1]}
-
+        prediction_result = "Above Limit" if prediction[0] == 1 else "Below Limit"
+        return {"income_prediction": prediction_result, "prediction_probability": probability}
 
     except Exception as e:
-        # Return error message and details if an exception occurs
         error_detail = str(e)
         raise HTTPException(status_code=500, detail=f"Error during classification: {error_detail}")
 

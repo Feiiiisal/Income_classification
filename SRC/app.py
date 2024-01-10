@@ -5,14 +5,14 @@ import os
 
 # Load the model and encoder
 SRC = os.path.abspath('./SRC/Assets')
-pipeline_path = os.path.join(SRC, 'rfc_pipeline.pkl')
-encoder_path = os.path.join(SRC, 'encoder.pkl')
+pipeline_path = os.path.join(SRC, 'pipeline.pkl')
+model_path = os.path.join(SRC, 'rfc_model.pkl')
 
 with open(pipeline_path, 'rb') as file:
-    model = pickle.load(file)
+    pipeline = pickle.load(file)
 
-with open(encoder_path, 'rb') as file:
-    encoder = pickle.load(file)
+with open(model_path, 'rb') as file:
+    model = pickle.load(file)
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
@@ -98,9 +98,12 @@ if options == "Prediction":
             'citizenship', 'importance_of_record'
         ])
 
+        # Preprocess the input data through the pipeline before making predictions
+        input_data_transformed = pipeline.transform(input_data)
+
         # Predict and display results
-        prediction = model.predict(input_data)
-        probability = model.predict_proba(input_data).max(axis=1)[0]
+        prediction = model.predict(input_data_transformed)
+        probability = model.predict_proba(input_data_transformed).max(axis=1)[0]
         result = "Above Limit" if prediction[0] == 1 else "Below Limit"
         st.success(f'Income Level Prediction: {result}')
         st.info(f'Prediction Probability: {probability:.2f}')
@@ -119,8 +122,8 @@ elif options == "Model Information":
         - **Training Data:** 
           - Our model is trained on comprehensive census data, encompassing a wide range of features such as age, education, marital status, race, occupation, and more. This rich dataset ensures a nuanced understanding of the socio-economic factors influencing income levels.
 
-        - **Accuracy:** 92%
-          - With an accuracy of 92%, our model stands as a reliable predictor, demonstrating its effectiveness in understanding and categorizing income levels.
+        - **Accuracy:** 94%
+          - With an accuracy of 94%, our model stands as a reliable predictor, demonstrating its effectiveness in understanding and categorizing income levels.
 
         - **What It Aims to Solve:**
           - **Economic Research:** Assists in socio-economic studies, understanding income distribution, and identifying key factors influencing income levels.
