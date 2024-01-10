@@ -1,7 +1,7 @@
 # Income Classification
 
 ## Project Overview
-Income Classification is a machine learning-based web application designed to predict an individual's income level. This tool is crucial for understanding financial demographics and assisting in informed decision-making.
+Income inequality - when income is distributed in an uneven manner among a population - is a growing problem in developing nations across the world. With the rapid rise of AI and worker automation, this problem could continue to grow if steps are not taken to address the issue.
 
 ## Model Information
 
