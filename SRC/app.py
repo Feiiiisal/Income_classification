@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import pickle
 import os
+from transformers import log_transform
 
 # Load the model and encoder
 SRC = os.path.abspath('./SRC/Assets')
@@ -82,20 +83,20 @@ if options == "Prediction":
     losses = st.number_input("Losses", min_value=0)
     stocks_status = st.number_input("Stocks Status", min_value=0)
     citizenship = st.selectbox("Citizenship", ['citizen', 'foreigner'])
-    importance_of_record = st.number_input("Importance of Record", min_value=0.0, format='%f')
+    
 
     if st.button('Predict Income Level'):
         input_data = pd.DataFrame([[
             age, gender, education, worker_class, marital_status, race, is_hispanic, employment_commitment,
             employment_stat, wage_per_hour, working_week_per_year, industry_code, industry_code_main, occupation_code,
             occupation_code_main, total_employed, household_summary, vet_benefit, tax_status, gains, losses,
-            stocks_status, citizenship, importance_of_record
+            stocks_status, citizenship
         ]], columns=[
             'age', 'gender', 'education', 'worker_class', 'marital_status', 'race', 'is_hispanic', 
             'employment_commitment', 'employment_stat', 'wage_per_hour', 'working_week_per_year', 
             'industry_code', 'industry_code_main', 'occupation_code', 'occupation_code_main', 'total_employed', 
             'household_summary', 'vet_benefit', 'tax_status', 'gains', 'losses', 'stocks_status', 
-            'citizenship', 'importance_of_record'
+            'citizenship'
         ])
 
         # Preprocess the input data through the pipeline before making predictions
@@ -122,8 +123,8 @@ elif options == "Model Information":
         - **Training Data:** 
           - Our model is trained on comprehensive census data, encompassing a wide range of features such as age, education, marital status, race, occupation, and more. This rich dataset ensures a nuanced understanding of the socio-economic factors influencing income levels.
 
-        - **Accuracy:** 94%
-          - With an accuracy of 94%, our model stands as a reliable predictor, demonstrating its effectiveness in understanding and categorizing income levels.
+        - **Accuracy:** 98%
+          - With an accuracy of 98%, our model stands as a reliable predictor, demonstrating its effectiveness in understanding and categorizing income levels.
 
         - **What It Aims to Solve:**
           - **Economic Research:** Assists in socio-economic studies, understanding income distribution, and identifying key factors influencing income levels.

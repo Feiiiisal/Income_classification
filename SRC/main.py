@@ -1,4 +1,5 @@
 from fastapi import FastAPI,HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Literal,List
 import uvicorn
 from pydantic import BaseModel
@@ -6,13 +7,12 @@ import pandas as pd
 import os
 import pickle
 import numpy as np
+from transformers import log_transform
 
 # setup
 SRC = os.path.abspath('./SRC/Assets')
 
-def log_transform(x):
-    return np.log(x + 1) 
-
+ 
 # Load the pipeline using pickle
 pipeline_path = os.path.join(SRC, 'pipeline.pkl')
 with open(pipeline_path, 'rb') as file:
@@ -28,6 +28,15 @@ app = FastAPI(
     description='A FastAPI service to classify individuals based on income level using a trained machine learning model.',
     version= '1.0.0'
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],  
+    allow_headers=["*"],  
+)
+
 
 class IncomePredictionInput(BaseModel):
     age:                   int
@@ -53,6 +62,7 @@ class IncomePredictionInput(BaseModel):
     losses:                int
     stocks_status:         int
     citizenship:           str
+
 
    
 class IncomePredictionOutput(BaseModel):

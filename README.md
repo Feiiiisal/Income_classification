@@ -14,8 +14,8 @@ The Random Forest is a versatile and robust machine learning method that combine
 ### Training Data
 Our model is trained on comprehensive census data, encompassing a wide range of features such as age, education, marital status, race, occupation, and more. This rich dataset ensures a nuanced understanding of the socio-economic factors influencing income levels.
 
-### Accuracy: 92%
-With an accuracy of 92%, our model stands as a reliable predictor, demonstrating its effectiveness in understanding and categorizing income levels.
+### Accuracy: 98%
+With an accuracy of 98%, our model stands as a reliable predictor, demonstrating its effectiveness in understanding and categorizing income levels.
 
 ### What It Aims to Solve
 - **Economic Research:** Assists in socio-economic studies, understanding income distribution, and identifying key factors influencing income levels.
