@@ -5,9 +5,13 @@ from pydantic import BaseModel
 import pandas as pd
 import os
 import pickle
+import numpy as np
 
 # setup
 SRC = os.path.abspath('./SRC/Assets')
+
+def log_transform(x):
+    return np.log(x + 1) 
 
 # Load the pipeline using pickle
 pipeline_path = os.path.join(SRC, 'pipeline.pkl')
@@ -49,7 +53,6 @@ class IncomePredictionInput(BaseModel):
     losses:                int
     stocks_status:         int
     citizenship:           str
-    importance_of_record:  float
 
    
 class IncomePredictionOutput(BaseModel):
