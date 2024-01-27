@@ -1,7 +1,7 @@
 # Income Classification
 
 ## Project Overview
-Income Classification is a machine learning-based web application designed to predict an individual's income level. This tool is crucial for understanding financial demographics and assisting in informed decision-making.
+Income inequality - when income is distributed in an uneven manner among a population - is a growing problem in developing nations across the world. With the rapid rise of AI and worker automation, this problem could continue to grow if steps are not taken to address the issue.
 
 ## Model Information
 
@@ -14,8 +14,8 @@ The Random Forest is a versatile and robust machine learning method that combine
 ### Training Data
 Our model is trained on comprehensive census data, encompassing a wide range of features such as age, education, marital status, race, occupation, and more. This rich dataset ensures a nuanced understanding of the socio-economic factors influencing income levels.
 
-### Accuracy: 98%
-With an accuracy of 98%, our model stands as a reliable predictor, demonstrating its effectiveness in understanding and categorizing income levels.
+### Accuracy: 92%
+With an accuracy of 92%, our model stands as a reliable predictor, demonstrating its effectiveness in understanding and categorizing income levels.
 
 ### What It Aims to Solve
 - **Economic Research:** Assists in socio-economic studies, understanding income distribution, and identifying key factors influencing income levels.
