@@ -1,70 +1,75 @@
 # Income Classification
 
-## Project Overview
-Income inequality - when income is distributed in an uneven manner among a population - is a growing problem in developing nations across the world. With the rapid rise of AI and worker automation, this problem could continue to grow if steps are not taken to address the issue.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Python](https://img.shields.io/badge/python-3.9%2B-blue)
+![FastAPI](https://img.shields.io/badge/API-FastAPI-009688)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit-red)
+![Hugging Face](https://img.shields.io/badge/hosted-Hugging%20Face%20Spaces-yellow)
 
-## Model Information
+A machine-learning model that predicts whether a person's income falls above or
+below a threshold from census-style attributes (age, education, occupation,
+marital status and more), served through a **FastAPI** backend and a
+**Streamlit** front end, both hosted on Hugging Face Spaces.
 
-### Model Description
-In a world where understanding financial demographics is key to tailor services and opportunities, our model serves as a powerful tool to predict an individual's income level. This insight can be instrumental for businesses, policymakers, and researchers in making informed decisions.
+## Why it matters
 
-### Model Type: Random Forest Classifier
-The Random Forest is a versatile and robust machine learning method that combines multiple decision trees to produce more accurate and stable predictions. It's known for its high accuracy, ability to handle large datasets with higher dimensionality, and its robustness to overfitting.
+Understanding the factors linked to income helps with economic research,
+targeted services and policy design. The project also shows the full path from
+a notebook to a deployed, containerised application.
 
-### Training Data
-Our model is trained on comprehensive census data, encompassing a wide range of features such as age, education, marital status, race, occupation, and more. This rich dataset ensures a nuanced understanding of the socio-economic factors influencing income levels.
+## Try it
 
-### F1: 98%
-With an F! score of 98%, our model stands as a reliable predictor, demonstrating its effectiveness in understanding and categorizing income levels.
+- **Streamlit app:** <https://feiiisal-streamlit-income-classification.hf.space/>
+- **FastAPI docs:** <https://feiiisal-fastapi-income-classification.hf.space/docs>
 
-### What It Aims to Solve
-- **Economic Research:** Assists in socio-economic studies, understanding income distribution, and identifying key factors influencing income levels.
-- **Targeted Marketing:** Enables businesses to tailor their marketing strategies by understanding the income brackets of their potential customer base.
-- **Policy Making:** Aids policymakers in crafting targeted welfare schemes and tax brackets.
-- **Personalized Services:** Financial institutions can offer more personalized financial advice or services based on predicted income levels.
+| FastAPI | Streamlit |
+|---|---|
+| ![FastAPI interface](Screenshots/Fastapi.png) | ![Streamlit interface](Screenshots/Streamlit.png) |
 
-### Ethical Considerations
-We are committed to ethical AI practices. We recognize the importance of privacy, fairness, and inclusivity in our model's application and strive to prevent biases.
+![Streamlit prediction](Screenshots/Streamlit%20Prediction.png)
 
-## Installation
+## Model
 
-To set up the project locally:
+The notebook compares several classifiers (including Random Forest, CatBoost,
+LightGBM and XGBoost) on census data after cleaning, feature engineering and
+class balancing. The **Random Forest** was selected:
+
+| Model | Accuracy (39,301 test rows) |
+|---|---|
+| Random Forest | **0.98** |
+| CatBoost | 0.97 |
+
+## Repository contents
+
+```
+Dev/income.ipynb      Exploration, feature engineering, model comparison
+Data.zip              The dataset
+SRC/
+  main.py             FastAPI service (model + preprocessing pipeline)
+  app.py              Streamlit application
+  transformers.py     Custom preprocessing transformer used by the pipeline
+  Assets.zip          Saved model and pipeline (unzip to SRC/Assets)
+Screenshots/          App screenshots
+requirements.txt
+```
+
+## Setup
 
 ```bash
 git clone https://github.com/Feiiiisal/Income_classification.git
-cd income_classification
+cd Income_classification
 pip install -r requirements.txt
 ```
 
-## Deployment and Hosting
+Unzip `SRC/Assets.zip` into `SRC/Assets/` to get the saved model files. The
+hosted apps above are the quickest way to try the project.
 
-We've containerized and hosted our applications on Hugging Face Spaces, ensuring ease of access and scalability. 
+## Ethical considerations
 
-### FastAPI Application
+Models that predict income can reflect biases in the data they were trained on.
+Treat the output as a demonstration of the technique, not as a basis for
+decisions about real people.
 
-Our FastAPI-based backend service is containerized and hosted on Hugging Face Spaces. Explore the API documentation and test endpoints at the following link:
+## License
 
-[Income Classification - FastAPI](https://feiiisal-fastapi-income-classification.hf.space/docs#/)
-
-### Streamlit Application
-
-The interactive front-end application built with Streamlit is also containerized and available on Hugging Face Spaces. Experience the user interface and features of the application here:
-
-[Income Classification - Streamlit](https://feiiisal-streamlit-income-classification.hf.space/)
-
-### Screenshots
-
-![Income Classification Prediction Interface](https://github.com/Feiiiisal/Income_classification/blob/main/Screenshots/Fastapi.png)
-*FastAPI*
-
-![Income Classification Prediction Interface](https://github.com/Feiiiisal/Income_classification/blob/main/Screenshots/Streamlit.png)
-*Streamlit*
-
-### Feedback
-I value your feedback! Please share your thoughts and suggestions to help me improve.
-
-### Contributing
-Contributions are welcome! 
-
-### License
-This project is licensed under the MIT License.
+[MIT](LICENSE)
